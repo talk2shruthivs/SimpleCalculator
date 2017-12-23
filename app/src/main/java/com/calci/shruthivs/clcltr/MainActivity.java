@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String val1="", val2="", op="";
-    public boolean flag=true;
+    public String previousVal="", currentVal="", op="";
+    public boolean flag=false;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -31,33 +31,30 @@ public class MainActivity extends AppCompatActivity {
         Button b = (Button)findViewById(view.getId());
         String buttonText = b.getText().toString();
 
-        Log.v("MainActivity", "buttonText:  " + buttonText);
-        Log.v("MainActivity", "val1:  " + val1);
-        Log.v("MainActivity", "op:  " + op);
-        Log.v("MainActivity", "val2:  " + val2);
 
-        if(buttonText.equals("+") || buttonText.equals("-") || buttonText.equals("*") || buttonText.equals("/")){
-            if(val1.equals("")) return;
+        if(buttonText.equals("+") || buttonText.equals("-") || buttonText.equals("*") || buttonText.equals("/") ){
+            if(currentVal.equals("") && !flag ) return;
             op=buttonText;
-            flag=false;
-            tv.setText(val1+op);
+            //flag=true;
+            if(!flag){
+                previousVal=currentVal;
+                currentVal="";
+                flag=true;
+            }
+            //tv.setText(val1+op);
         }
-        else if(flag && op.equals("")){
-            val1+=buttonText;
-            tv.setText(val1);
-        }
-        else if( !flag ){
-            val2+=buttonText;
-            tv.setText(val1+op+val2);
+        else {
+            currentVal+=buttonText;
+            tv.setText(currentVal);
         }
     }
 
     public void clearScreen(View view){
         TextView tv = (TextView) findViewById(R.id.result);
-        val1="";
-        val2="";
+        currentVal="";
+        previousVal="";
         op="";
-        flag=true;
+        flag=false;
         tv.setText("0");
     }
 
@@ -66,13 +63,13 @@ public class MainActivity extends AppCompatActivity {
         Double value1=0.0, value2=0.0, finalResult=0.0;
 
         try {
-            value1 = Double.valueOf(val1);
+            value1 = Double.valueOf(previousVal);
         } catch(NumberFormatException nfe) {
             System.out.println("Could not parse " + nfe);
         }
 
         try {
-            value2 = Double.valueOf(val2);
+            value2 = Double.valueOf(currentVal);
         } catch(NumberFormatException nfe) {
             System.out.println("Could not parse " + nfe);
         }
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showResult(Double fRes){
 
-        fRes = Math.round(fRes * 1000000D) / 1000000D;
+        fRes = Math.round(fRes * 10000000000D) / 10000000000D;
 
         String fR="";
 
@@ -109,12 +106,21 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = (TextView) findViewById(R.id.result);
         tv.setText(fR);
-        val1=fR;
-        val2="";
+        previousVal=fR;
+        currentVal="";
         op="";
-        flag=true;
     }
 
+    /**
+     * @param view
+     * Converts input into its negative form.
+     */
+    public void reverseSign(View view){
+        TextView tv = (TextView) findViewById(R.id.result);
+        Double temp= -1*Double.valueOf(currentVal);
+        currentVal = Double.toString(temp);
+        tv.setText(currentVal);
+    }
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.

@@ -28,17 +28,9 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:paddingBottom="16dp"/>
+            android:paddingBottom="16dp"
+            android:maxLength="19" />
 
-        <Button
-            android:id="@+id/btclr"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="clearScreen"
-            android:layout_weight="3"
-            android:text="CLR"
-            android:textSize="28sp"
-            android:background="@drawable/button_selector" />
 
     </LinearLayout>
 
@@ -201,7 +193,7 @@
             android:onClick="displayFormula"
             android:text="."
             android:textSize="36sp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:background="@drawable/button_selector" />
 
         <Button
@@ -215,6 +207,34 @@
             android:background="@drawable/button_selector" />
 
         <Button
+            android:id="@+id/btdiv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="displayFormula"
+            android:text="/"
+            android:textSize="36sp"
+            android:layout_weight="1.5"
+            android:background="@drawable/button_selector"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/btplmi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="reverseSign"
+            android:text="+/-"
+            android:textSize="32sp"
+            android:layout_weight="1.5"
+            android:background="@drawable/button_selector" />
+
+        <Button
             android:id="@+id/bteq"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -225,14 +245,14 @@
             android:background="@drawable/button_selector" />
 
         <Button
-            android:id="@+id/btdiv"
+            android:id="@+id/btclr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="displayFormula"
-            android:text="/"
-            android:textSize="36sp"
-            android:layout_weight="1"
-            android:background="@drawable/button_selector"/>
+            android:onClick="clearScreen"
+            android:layout_weight="1.5"
+            android:text="CLR"
+            android:textSize="28sp"
+            android:background="@drawable/button_selector" />
     </LinearLayout>
 
 </LinearLayout>
