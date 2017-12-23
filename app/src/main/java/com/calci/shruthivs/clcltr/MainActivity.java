@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         Button b = (Button)findViewById(view.getId());
         String buttonText = b.getText().toString();
 
+        Log.v("MainActivity", "buttonText:  " + buttonText);
+        Log.v("MainActivity", "val1:  " + val1);
+        Log.v("MainActivity", "op:  " + op);
+        Log.v("MainActivity", "val2:  " + val2);
+
         if(buttonText.equals("+") || buttonText.equals("-") || buttonText.equals("*") || buttonText.equals("/")){
             if(val1.equals("")) return;
             op=buttonText;
