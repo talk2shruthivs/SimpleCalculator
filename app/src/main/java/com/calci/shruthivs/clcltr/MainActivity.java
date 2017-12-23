@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     TextView tv = (TextView) findViewById(R.id.result);
                     tv.setText("DivisionbyZeroError!!");
+                    currentVal="";
+                    previousVal="";
+                    op="";
+                    flag=false;
                     return;
                 }
                 break;
