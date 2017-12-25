@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,17 +36,22 @@ public class MainActivity extends AppCompatActivity {
 
         if(buttonText.equals("+") || buttonText.equals("-") || buttonText.equals("*") || buttonText.equals("/") ){
             if(currentVal.equals("") && !flag ) return;
+            //make the screen blink for button press
+            Animation startAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blinking_animation);
+            tv.startAnimation(startAnim);
+            //tv.clearAnimation();
+
             op=buttonText;
-            //flag=true;
-            if(!flag){
+
+            if(!flag ){
                 previousVal=currentVal;
                 currentVal="";
                 flag=true;
             }
-            //tv.setText(val1+op);
         }
         else {
             currentVal+=buttonText;
+            flag=false;
             tv.setText(currentVal);
         }
     }
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         previousVal=fR;
         currentVal="";
         op="";
+        flag=true;
     }
 
     /**
@@ -121,10 +129,18 @@ public class MainActivity extends AppCompatActivity {
      */
     public void reverseSign(View view){
         TextView tv = (TextView) findViewById(R.id.result);
-        Double temp= -1*Double.valueOf(currentVal);
-        currentVal = Double.toString(temp);
-        tv.setText(currentVal);
+        if(currentVal!="") {
+            Double temp = -1 * Double.valueOf(currentVal);
+            currentVal = Double.toString(temp);
+            tv.setText(currentVal);
+        }
+        else{
+            Double temp = -1 * Double.valueOf(previousVal);
+            previousVal = Double.toString(temp);
+            tv.setText(previousVal);
+        }
     }
+
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
